@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulário de Coleta de Dados</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: rgb(0, 179, 255);
+    }
+    div#logo {
+        text-align: center;
+    }
+    form {
+        max-width: 400px;
+        margin: 0 auto;
+        background-color: white;
+        border: 3px solid black;
+    }
+    input[type="text"],
+    select {
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0;
+        box-sizing: border-box;
+    }
+    .whatsapp-button,
+    .print-button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+    .whatsapp-button:hover,
+    .print-button:hover {
+        background-color: #45a049;
+    }
+    .signature-container {
+        margin-top: 20px;
+        border: 1px solid #ccc;
+        padding: 10px;
+    }
+    .company-logo {
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+    #material {
+        height: 150px;
+        width: 390px;
+    }
+</style>
+</head>
+<body>
+
+
+<div id="logo"><img src="http://www.sincroniza.com.br/wp-content/uploads/2016/04/marca.png" alt="Logo da Empresa" class="company-logo"></div>
+    <h1 style="text-align: center;">Requisição de Materiais</h1>
+<form id="dataForm" onsubmit="return validateForm()">
+    <div>
+        <label for="name">Nome:</label>
+        <input type="text" id="name" name="name" required>
+    </div>
+    <div>
+        <label for="role">Função:</label>
+        <input type="text" id="role" name="role" required>
+    </div>
+    <div>
+        <label for="equipment">Equipamento:</label>
+        <input type="text" id="equipment" name="equipment" required>
+    </div>
+    <div>
+        <label for="material">Material:</label>
+        <textarea id="material" name="material" required></textarea>>
+    </div>
+    <div>
+        <label for="asset">Patrimônio:</label>
+        <input type="text" id="asset" name="asset" required>
+    </div>
+    <div class="signature-container">
+        <canvas id="signatureCanvas" width="400" height="200"></canvas>
+    </div>
+    <div>
+        <button class="whatsapp-button" onclick="sendToWhatsApp()">Enviar para WhatsApp</button>
+        <button class="print-button" onclick="printForm()">Imprimir</button>
+    </div>
+    <h3>Termo de responsabilidade</h3>
+    <p>Recebi da empresa SINCRONIZA ENGENHARIA LTDA, CNPJ nº. 84.907.393/001-01, a título de empréstimo, para meu uso exclusivo no  
+        trabalho, conforme determinado na lei art. 462 § 1º da CLT firmado entre as parte no contrato de trabalho, os equipamentos especificados termo de  
+        responsabilidade, comprometendo-me a mantê-los em perfeito estado de conservação, ficando ciente de que:
+        1- Se o equipamento for danificado ou inutilizado por emprego inadequado, mau uso, negligência ou extravio, a empresa me fornecerá  .
+                      novo equipamento e cobrará o valor de um equipamento da mesma marca ou equivalente ao da praça.
+        2- Em caso de dano, inutilização ou extravio da ferramentas deverei comunicar imediatamente ao setor competente.
+        3- Terminando os serviços ou no caso de rescisão do contrato de trabalho, devolverei o ferramentas completo e em perfeito estado de 
+                      conservação, considerando-se o tempo do uso do mesmo, ao setor competente.
+        4- Estando as ferramentas em minha posse, estarei sujeito a inspeções sem prévio aviso, dos equipamentos conforme pagina.
+        Declaro que conferi os equipamentos da relação conforme descrito acima e que os mesmos encontram-se em perfeitas condições de uso, 
+        Salvo observações.
+        </p>
+</form>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"></script>
+<script>
+    var canvas = document.getElementById('signatureCanvas');
+    var signaturePad = new SignaturePad(canvas);
+
+    function validateForm() {
+        var name = document.getElementById('name').value;
+        var role = document.getElementById('role').value;
+        var equipment = document.getElementById('equipment').value;
+        var material = document.getElementById('material').value;
+        var asset = document.getElementById('asset').value;
+
+        if (name === "" || role === "" || equipment === "" || material === "" || asset === "") {
+            alert("Por favor, preencha todos os campos.");
+            return false;
+        }
+
+        if (signaturePad.isEmpty()) {
+            alert("Por favor, assine o formulário.");
+            return false;
+        }
+
+        return true;
+    }
+
+    function sendToWhatsApp() {
+        if (!validateForm()) return;
+
+        var name = document.getElementById('name').value;
+        var role = document.getElementById('role').value;
+        var equipment = document.getElementById('equipment').value;
+        var material = document.getElementById('material').value;
+        var asset = document.getElementById('asset').value;
+
+        
+        alert("Dados enviados para WhatsApp com sucesso!");
+    }
+
+    function printForm() {
+        if (!validateForm()) return;
+
+        window.print();
+    }
+</script>
+
+</body>
+</html>
